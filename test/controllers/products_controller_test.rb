@@ -5,6 +5,15 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     @product = products(:one)
     @title = "The Great Book #{rand(1000)}"
   end
+  
+  test "can't delete product in cart" do
+    assert_difference("Product.count", 0) do
+      delete product_url(products(:two))
+    end
+    assert_redirected_to products_url
+  end
+
+
 
   test "should get index" do
     get products_url
