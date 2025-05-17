@@ -5,14 +5,14 @@ export default class extends Controller {
   static targets = ["selection", "additionalFields"]
 
   initialize() {
-    this.showAdditionalFields();
+    this.showAdditionalFields()
   }
 
   showAdditionalFields(){
-    let selection = this.selectionTarget.value;
+    let selection = this.selectionTarget.value
 
     for(let fields of this.additionalFieldsTargets) {
-      fields.disabled = fields.hidden = (fields.datdaset.type != selection);
+      fields.disabled = fields.hidden = (fields.datdaset.type != selection)
     }
   }
 }

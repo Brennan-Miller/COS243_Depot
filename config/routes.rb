@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   end
   get 'sessions/create'
   get 'sessions/destroy'
+
+  resources :support_requests, only: %i[ index update ]
+
   resources :users
   resources :orders
   resources :line_items

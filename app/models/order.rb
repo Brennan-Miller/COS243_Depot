@@ -9,14 +9,15 @@ class Order < ApplicationRecord
   }
   validates :name, :address, :email, presence: true
   validates :pay_type, inclusion: pay_types.keys
+
   def add_line_items_from_cart(cart)
     cart.line_items.each do |item|
       item.cart_id=nil
-      line_items=nil
+      line_items << item
     end
   end
 
-  def charge!(pay_types_params)
+  def charge!(pay_type_params)
     payment_details = {}
     payment_method = nil
 
@@ -38,8 +39,8 @@ class Order < ApplicationRecord
 
     payment_result = Pago.make_payment(
       order_id: id,
-      payment_mehtod: payment_method,
-      payment_details: paymenth_details
+      payment_method: payment_method,
+      payment_details: payment_details
     )
 
     if payment_result.succeeded?
@@ -48,5 +49,4 @@ class Order < ApplicationRecord
       raise payment_result.error
     end
   end
-
 end
